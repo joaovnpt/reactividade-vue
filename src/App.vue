@@ -30,6 +30,7 @@ function reset() {
   <button @click="add()">-</button>
   <button @click="add()">C</button>
 </div>
+<div class="quadro-soma"></div>
 </template>
 
 <style scoped>
@@ -43,8 +44,19 @@ function reset() {
 p {
   font-size: larger;
   color: white;
-  margin-right: 10px;
-  margin-left: 10px;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+button {
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
+.contador2 {
+  background-color: rgb(255, 0, 0);
+  padding: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 </style>
