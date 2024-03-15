@@ -1,65 +1,69 @@
 <script setup>
-import { ref, computed } from 'vue'
+  import { computed, ref } from 'vue';
 
-const contador = ref(0)
-const contador2 = ref(0)
-const somaMaiorQue10 = computed(() => {
-  return contador.value + contador2.value > 10;
-});
+  const contador1 = ref(0);
+  const contador2 = ref(0);
+  const valorBooleano = ref(true);
 
-function add() {
-  contador.value++
-}
+  function incrementar(contador) {
+    eval(contador).value++;
+  }
 
-function minus() {
-  contador.value--
-}
+  function decrementar(contador) {
+    if (eval(contador).value > 0) {
+      eval(contador).value--;
+    }
+  }
 
-function reset() {
-  contador.value = 0
-}
-
-function add2() {
-  contador2.value++
-}
-
-function minus2() {
-  contador2.value--
-}
-
-function reset2() {
-  contador2.value = 0
-}
+  const soma = computed(() => contador1.value + contador2.value);
+  const somaPar = computed(() => soma.value % 2 === 0);
+  const somaMaiorQue10 = computed(() => soma.value > 10);
 </script>
 
 <template>
-  <div class="contador1">
-    <button @click="add()">+</button>
-    <p>{{ contador }}</p>
-    <button @click="minus()">-</button>
-    <button @click="reset()">C</button>
+  <h1>Correção dos exercícios</h1>
+  <div class="booleano">
+    <button @click="valorBooleano = !valorBooleano">
+       {{ valorBooleano ? 'Esconder Resultado' : 'Mostrar Resultado' }}
+      
+    </button>
   </div>
-  <div class="contador2">
-    <button @click="add2()">+</button>
-    <p>{{ contador2 }}</p>
-    <button @click="minus2()">-</button>
-    <button @click="reset2()">C</button>
-  </div>
-  <div class="quadro-soma">
-    <p>A soma dos contadores é:</p>
-    {{ contador + contador2 }}
-    <hr />
-    <div v-if="somaMaiorQue10" class="menor-dez">
-      <span>Soma maior que 10!</span></div>
-    <div v-else-if="contador + contador2 == 10">Soma igual a 10</div>
-    <div v-else><span>Soma menor que 10</span></div>
-  </div>
-  <div class="par-impar">
-    <p>A soma dos contadores é:</p>
-    <div v-if="(contador + contador2) % 2 == 0"><span>Par</span></div>
-    <div v-else>Ímpar</div>
+  <div v-if="valorBooleano">
+    <div class="contador">
+      <h2>Contador 1</h2>
+      <button @click="incrementar('contador1')">Incrementar</button>
+      <button @click="decrementar('contador1')">Decrementar</button>
+      <p>Valor: {{ contador1 }}</p>
+    </div>
+    <div class="contador">
+      <h2>Contador 2</h2>
+      <button @click="incrementar('contador2')">Incrementar</button>
+      <button @click="decrementar('contador2')">Decrementar</button>
+      <p>Valor: {{ contador2 }}</p>
+    </div>
+    <div class="soma">
+      <h2>Soma</h2>
+      <p>Valor:  {{ soma }} </p>
+      <div v-if="somaMaiorQue10">
+        <p>A soma é maior que 10</p>
+      </div>
+      <div v-else>
+        <p>A soma é menor que 10</p>
+      </div>
+      <div v-if="somaPar">
+        <p>A soma é par</p>
+      </div>
+      <div v-else>
+        <p>A soma é ímpar</p>
+      </div>
+    </div>
   </div>
 </template>
+
+<style scoped>
+
+</style>
+
 
 <style scoped>
 .contador1 {
